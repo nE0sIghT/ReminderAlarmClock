@@ -79,7 +79,7 @@ class ReminderAlarmClock extends PanelMenu.Button {
             can_focus: false, reactive: false
         });
         let presents = this.settings.get_value('presents').deep_unpack()
-        menuItem.actor.add(this._makeUi(this._toLabels(presents)));
+        menuItem.actor.add_child(this._makeUi(this._toLabels(presents)));
         this.menu.addMenuItem(menuItem);
 
         this.menu.connect('open-state-changed', () => {
@@ -129,21 +129,21 @@ class ReminderAlarmClock extends PanelMenu.Button {
 
     _makeUi(labels) {
         let oneBox = new St.BoxLayout({ vertical: false });
-        oneBox.add(this._makeButtonsColon([labels[2], labels[3]]));
-        oneBox.add(this._makeButtonsColon([labels[4], labels[5]]));
+        oneBox.add_child(this._makeButtonsColon([labels[2], labels[3]]));
+        oneBox.add_child(this._makeButtonsColon([labels[4], labels[5]]));
 
         let twoBox = new St.BoxLayout({ vertical: true });
-        twoBox.add(this.timeLabel);
-        twoBox.add(oneBox);
+        twoBox.add_child(this.timeLabel);
+        twoBox.add_child(oneBox);
 
         let threeBox = new St.BoxLayout({ vertical: false });
-        threeBox.add(twoBox);
-        threeBox.add(
+        threeBox.add_child(twoBox);
+        threeBox.add_child(
             this._makeButtonsColon([this.ResetLabel, labels[0], labels[1]]));
 
         let mainBox = new St.BoxLayout({ vertical: true });
-        mainBox.add(threeBox);
-        mainBox.add(this.messageEntry);
+        mainBox.add_child(threeBox);
+        mainBox.add_child(this.messageEntry);
 
         return mainBox;
     }
@@ -218,7 +218,7 @@ class ReminderAlarmClock extends PanelMenu.Button {
         let reminder = new St.Label({
             style_class: 'rac-message-label-with-border'
         });
-        Main.uiGroup.add_actor(reminder);
+        Main.uiGroup.add_child(reminder);
         reminder.text = this.messageEntry.text;
         reminder.opacity = 255;
         this._setReminderPosition(reminder);
@@ -228,7 +228,7 @@ class ReminderAlarmClock extends PanelMenu.Button {
             duration: 5000,
             transition: Clutter.AnimationMode.EASE_OUT_QUAD,
             onComplete: () => {
-                Main.uiGroup.remove_actor(reminder);
+                Main.uiGroup.remove_child(reminder);
             }
         });
     }
@@ -244,15 +244,15 @@ class ReminderAlarmClock extends PanelMenu.Button {
             vertical: true, style_class: 'rac-message-layout'
         });
         button.connect('clicked', () => {
-            Main.uiGroup.remove_actor(reminder);
+            Main.uiGroup.remove_child(reminder);
 
             if(this._modalGrab) {
                 Main.popModal(this._modalGrab);
             }
         });
-        reminder.add(label);
-        reminder.add(button);
-        Main.uiGroup.add_actor(reminder);
+        reminder.add_child(label);
+        reminder.add_child(button);
+        Main.uiGroup.add_child(reminder);
         this._setReminderPosition(reminder);
         this._modalGrab = Main.pushModal(reminder);
     }
