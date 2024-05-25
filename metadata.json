@@ -8,7 +8,6 @@
     "settings-schema": "org.gnome.shell.extensions.reminderalarmclock",
 
     "shell-version": [
-        "45",
         "46"
     ]
 }

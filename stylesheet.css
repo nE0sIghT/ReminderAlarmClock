@@ -4,14 +4,16 @@
     box-shadow: none;
     border-color: #6e6e6e;
     margin: 4px;
-    padding: 10px;
+    padding: 4px 10px;
     font-size: 24px;
 }
 
 .rac-time-label {
     border-radius: 5px;
+    border-width: 1px;
+    box-shadow: none;
     margin: 4px;
-    padding: 4px 10px 4px 10px;
+    padding: 4px 10px;
     background-color: #eeeeec;
     color: #3f3e40;
     font-size: 36px;
